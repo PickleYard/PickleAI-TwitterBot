@@ -66,11 +66,11 @@ def get_gpt_response(user_message):
 
 # Reply to mentions on Twitter (might turn off for now)
 def reply_to_mentions():
-    signature = "\n\n-- PickleBot 🥒"
+    signature = "\n\n-- Your_signature_here"
     mentions = api.mentions_timeline()
     for mention in mentions:
         if not mention.favorited:
-            question = mention.text.replace("@pickleyard", "").strip()
+            question = mention.text.replace("@yourusername", "").strip()
             response = get_gpt_response(question)
             formatted_response = format_text(response)
             response_with_signature = formatted_response + signature
@@ -85,7 +85,7 @@ def reply_to_mentions():
 
 # Tweet a Good Morning thread
 def tweet_security_tip():
-    signature = "\n\n-- PickleBot 🥒"
+    signature = "\n\n-- Your_signature_here"
     topics = read_topics_from_file("topics.txt")
     topic = random.choice(topics)
     user_message = f"Write a series of only 4 engaging tweets in a warm tone on {topic} for a non-technical audience. The first tweet should be an introduction to the series and not numbered like the rest of the tweets and should be within the same topic context of the previous tweet and explain in more detail with less than 225 characters."
@@ -105,13 +105,11 @@ def tweet_security_tip():
         tweet_text = format_text(tweets[i], remove_newlines=True)
         if i == len(tweets) - 1:
             # Add hashtags and signature only to the last tweet
-            tweet_text += " #Security #Blockchain" + signature
+            tweet_text += signature
 
         if len(tweet_text) > 240:
             tweet_text = tweet_text[:tweet_text.rfind(' ', 0, 240)]
         tweet = api.update_status(status=tweet_text, in_reply_to_status_id=tweet.id)
-
-
 
 def main():
 
@@ -132,5 +130,4 @@ def main():
         time.sleep(3600)  # Sleep for 3600 seconds (1 hour) before checking again
 
 if __name__ == "__main__":
-    tweet_security_tip()
     main()

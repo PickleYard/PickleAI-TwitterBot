@@ -1,8 +1,14 @@
 # Ignore the .env file
 .env
 
+# Ignore the venv folder
+venv/
+
 # Ignore the topics.txt file
 topics.txt
+
+#Ignore the test.py file
+test.py
 
 # Ignore Python cache files
 __pycache__/
